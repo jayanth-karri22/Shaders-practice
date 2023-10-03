@@ -1,11 +1,14 @@
 import React from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import FragmentShader from "./Shaders/FragmentShader.glsl?raw";
-import VertexShader from "./Shaders/VertexShader.glsl?raw";
+import FragmentShader from "./FragmentShader.glsl?raw";
 
 const BasicMaterial = new THREE.ShaderMaterial({
-  vertexShader: VertexShader,
+  vertexShader: `
+    void main() {
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
   fragmentShader: FragmentShader,
 });
 
